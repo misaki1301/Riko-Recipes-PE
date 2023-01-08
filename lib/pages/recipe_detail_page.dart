@@ -35,7 +35,7 @@ class RecipeDetailPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(42 / 2)),
-                          child: Icon(Icons.arrow_back_ios_new_rounded)),
+                          child: const Icon(Icons.arrow_back_ios_new_rounded)),
                       const Spacer(),
                       Container(
                           width: 42,
@@ -43,13 +43,14 @@ class RecipeDetailPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(42 / 2)),
-                          child: Icon(Icons.bookmark_border)),
+                          child: const Icon(Icons.bookmark_border)),
                     ],
                   )),
               Positioned(
                   top: 250,
                   child: Container(
-                    padding: EdgeInsets.only(top: 32, left: 32, right: 32),
+                    padding:
+                        const EdgeInsets.only(top: 32, left: 32, right: 32),
                     width: screenSize.width,
                     height: 500,
                     decoration: BoxDecoration(
@@ -61,7 +62,7 @@ class RecipeDetailPage extends StatelessWidget {
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   "Burger",
                                   style: TextStyle(fontSize: 32),
@@ -71,7 +72,7 @@ class RecipeDetailPage extends StatelessWidget {
                             ),
                             const Spacer(),
                             Container(
-                                padding: EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                     color: Colors.amberAccent,
                                     borderRadius: BorderRadius.circular(8)),
@@ -84,8 +85,26 @@ class RecipeDetailPage extends StatelessWidget {
                           ],
                         ),
                         Container(
-                          decoration: BoxDecoration(color: Colors.amberAccent),
-                          child: Icon(Icons.punch_clock_sharp),
+                          height: 100,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 4,
+                            itemBuilder: (context, index) => Container(
+                              margin: EdgeInsets.only(left: 8, right: 8),
+                              width: 64,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(32),
+                                  color: Colors.amberAccent),
+                              child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadiusDirectional.circular(16),
+                                      color: Colors.white),
+                                  child: const Icon(Icons.punch_clock_sharp)),
+                            ),
+                          ),
                         )
                       ],
                     ),
