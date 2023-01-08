@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:putakerikoeh/home_page.dart';
+import 'package:putakerikoeh/pages/home_page.dart';
+import 'package:putakerikoeh/pages/recipe_detail_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const RecipeDetailPage(),
     );
   }
 }
