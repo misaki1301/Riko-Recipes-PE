@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                               child: CircularProgressIndicator(),
                             );
                           }
-                          if (snapshot.data != null) {
+                          if (snapshot.data != null && snapshot.data!.isEmpty) {
                             return const Center(
                               child: Text("No tenemos recetas por el momento"),
                             );
@@ -264,8 +264,9 @@ class _HomePageState extends State<HomePage> {
                                         child: Text(
                                           "${recipe["name"]}",
                                           style: const TextStyle(
-                                              fontSize: 21,
                                               fontWeight: FontWeight.w600),
+                                          overflow: TextOverflow.ellipsis,
+                                          //textScaleFactor: 1.5,
                                         ),
                                       ),
                                       Container(
