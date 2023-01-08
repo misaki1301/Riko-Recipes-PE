@@ -29,13 +29,19 @@ class RecipeDetailPage extends StatelessWidget {
                   right: 20,
                   child: Row(
                     children: [
-                      Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                              color: Colors.amberAccent,
-                              borderRadius: BorderRadius.circular(42 / 2)),
-                          child: const Icon(Icons.arrow_back_ios_new_rounded)),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                            width: 42,
+                            height: 42,
+                            decoration: BoxDecoration(
+                                color: Colors.amberAccent,
+                                borderRadius: BorderRadius.circular(42 / 2)),
+                            child:
+                                const Icon(Icons.arrow_back_ios_new_rounded)),
+                      ),
                       const Spacer(),
                       Container(
                           width: 42,
@@ -50,7 +56,7 @@ class RecipeDetailPage extends StatelessWidget {
                   top: 250,
                   child: Container(
                     padding:
-                        const EdgeInsets.only(top: 32, left: 32, right: 32),
+                        const EdgeInsets.only(top: 32, left: 16, right: 16),
                     width: screenSize.width,
                     height: 500,
                     decoration: BoxDecoration(
@@ -84,27 +90,152 @@ class RecipeDetailPage extends StatelessWidget {
                                 ))
                           ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Container(
-                          height: 100,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.only(left: 8, right: 8),
-                              width: 64,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(32),
-                                  color: Colors.amberAccent),
-                              child: Container(
-                                  padding: const EdgeInsets.all(8),
+                          height: 116,
+                          child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  margin:
+                                      const EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 8),
+                                  width: 64,
+                                  height: 100,
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadiusDirectional.circular(16),
-                                      color: Colors.white),
-                                  child: const Icon(Icons.punch_clock_sharp)),
-                            ),
-                          ),
+                                      borderRadius: BorderRadius.circular(32),
+                                      color: Colors.amberAccent),
+                                  child: Column(
+                                    children: [
+                                      ClipOval(
+                                          child: CircleAvatar(
+                                              radius: 28,
+                                              backgroundColor: Colors.white,
+                                              child: const Icon(
+                                                Icons.punch_clock_sharp,
+                                                color: Colors.black,
+                                              ))),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "35",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                      Text("mins")
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  margin:
+                                      const EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 8),
+                                  width: 64,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(32),
+                                      color: Colors.amberAccent),
+                                  child: Column(
+                                    children: [
+                                      ClipOval(
+                                          child: CircleAvatar(
+                                              radius: 28,
+                                              backgroundColor: Colors.white,
+                                              child: const Icon(
+                                                Icons.punch_clock_sharp,
+                                                color: Colors.black,
+                                              ))),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "35",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                      Text("mins")
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  margin:
+                                      const EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 8),
+                                  width: 64,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(32),
+                                      color: Colors.amberAccent),
+                                  child: Column(
+                                    children: [
+                                      ClipOval(
+                                          child: CircleAvatar(
+                                              radius: 28,
+                                              backgroundColor: Colors.white,
+                                              child: const Icon(
+                                                Icons.punch_clock_sharp,
+                                                color: Colors.black,
+                                              ))),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "35",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                      Text("mins")
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  margin:
+                                      const EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 8),
+                                  width: 64,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(32),
+                                      color: Colors.amberAccent),
+                                  child: Column(
+                                    children: [
+                                      ClipOval(
+                                          child: CircleAvatar(
+                                              radius: 28,
+                                              backgroundColor: Colors.white,
+                                              child: const Icon(
+                                                Icons.punch_clock_sharp,
+                                                color: Colors.black,
+                                              ))),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "35",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                      Text("mins")
+                                    ],
+                                  ),
+                                ),
+                              ]),
                         )
                       ],
                     ),

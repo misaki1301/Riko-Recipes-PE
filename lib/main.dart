@@ -4,8 +4,8 @@ import 'package:putakerikoeh/pages/recipe_detail_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 const supabaseUrl = "https://raisnmmxiazsjfpvnder.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhaXNubW14aWF6c2pmcHZuZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzMwNjM0NzksImV4cCI6MTk4ODYzOTQ3OX0.YYWntVnml97jEP3czWrrPvwNdyKPYlbbjN3SwpBpTfk";
-
+const supabaseKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhaXNubW14aWF6c2pmcHZuZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzMwNjM0NzksImV4cCI6MTk4ODYzOTQ3OX0.YYWntVnml97jEP3czWrrPvwNdyKPYlbbjN3SwpBpTfk";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const RecipeDetailPage(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomePage(),
+        "/recipes": (context) => const RecipeDetailPage(),
+      },
+      //home: const RecipeDetailPage(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:putakerikoeh/models/recipe.dart';
 import 'package:putakerikoeh/services/supabase_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                     margin: const EdgeInsets.only(left: 20, right: 20),
-                    child: FutureBuilder<List<Map<String, dynamic>>>(
+                    child: FutureBuilder<List<Recipe>>(
                         future: SupabaseService().getRecipes(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -158,7 +159,6 @@ class _HomePageState extends State<HomePage> {
                             );
                           }
                           final recipes = snapshot.data!;
-                          print(recipes);
                           return GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -172,112 +172,122 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisExtent: 300),
                               itemBuilder: (context, index) {
                                 final recipe = recipes[index];
-                                return LayoutBuilder(
-                                  builder: (context, constraints) => Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Positioned(
-                                                child: Container(
-                                                  //width: double.maxFinite,
-                                                  height:
-                                                      constraints.maxHeight /
-                                                          1.25,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              32),
-                                                      image: DecorationImage(
-                                                          image: DecorationImage(
-                                                                  image: NetworkImage(
-                                                                      recipe[
-                                                                          "image"]))
-                                                              .image,
-                                                          fit: BoxFit.cover)),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 12,
-                                                top: 12,
-                                                child: Container(
-                                                  width: 100,
-                                                  padding:
-                                                      const EdgeInsets.all(4),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
-                                                      color: Colors.black
-                                                          .withOpacity(0.3)),
-                                                  child: Row(
-                                                    children: [
-                                                      const Icon(
-                                                        Icons.timelapse,
-                                                        color: Colors.white,
-                                                      ),
-                                                      Text(
-                                                        "${recipe["max_time"]} mins",
-                                                        style: const TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                  right: 12,
-                                                  bottom: 12,
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/recipes");
+                                  },
+                                  child: LayoutBuilder(
+                                    builder: (context, constraints) => Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Positioned(
                                                   child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(2),
-                                                    width: 50,
+                                                    //width: double.maxFinite,
+                                                    height:
+                                                        constraints.maxHeight /
+                                                            1.25,
                                                     decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.amberAccent,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(12)),
+                                                                .circular(32),
+                                                        image: DecorationImage(
+                                                            image: DecorationImage(
+                                                                    image: NetworkImage(
+                                                                        recipe
+                                                                            .image!))
+                                                                .image,
+                                                            fit: BoxFit.cover)),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  left: 12,
+                                                  top: 12,
+                                                  child: Container(
+                                                    width: 100,
+                                                    padding:
+                                                        const EdgeInsets.all(4),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                        color: Colors.black
+                                                            .withOpacity(0.3)),
                                                     child: Row(
                                                       children: [
-                                                        const Icon(Icons.star),
+                                                        const Icon(
+                                                          Icons.timelapse,
+                                                          color: Colors.white,
+                                                        ),
                                                         Text(
-                                                            "${recipe["rating"]}")
+                                                          "${recipe.maxTime} mins",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
                                                       ],
                                                     ),
-                                                  ))
-                                            ],
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                    right: 12,
+                                                    bottom: 12,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              2),
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors
+                                                              .amberAccent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12)),
+                                                      child: Row(
+                                                        children: [
+                                                          const Icon(
+                                                              Icons.star),
+                                                          Text(
+                                                              "${recipe.rating}")
+                                                        ],
+                                                      ),
+                                                    ))
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "${recipe.name}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600),
+                                            overflow: TextOverflow.ellipsis,
+                                            //textScaleFactor: 1.5,
                                           ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "${recipe["name"]}",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w600),
-                                          overflow: TextOverflow.ellipsis,
-                                          //textScaleFactor: 1.5,
                                         ),
-                                      ),
-                                      Container(
-                                        child: const Text(
-                                          "Asian",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.grey),
-                                        ),
-                                      )
-                                    ],
+                                        Container(
+                                          child: const Text(
+                                            "Asian",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               });
