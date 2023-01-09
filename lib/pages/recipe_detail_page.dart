@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:putakerikoeh/services/supabase_service.dart';
+
+import '../models/recipe.dart';
 
 class RecipeDetailPage extends StatelessWidget {
   const RecipeDetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final recipeId = ModalRoute.of(context)!.settings.arguments as int;
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
-          width: double.maxFinite,
+        child: FutureBuilder(future: SupabaseService().getRecipe(recipeId),builder: (context, snapshot) {
+          if(!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator(),);
+          }
+          Recipe recipe = snapshot.data!;
+          return SizedBox( width: double.maxFinite,
           height: screenSize.height,
           child: Stack(
             children: [
@@ -17,10 +25,10 @@ class RecipeDetailPage extends StatelessWidget {
                   child: Container(
                 width: double.maxFinite,
                 height: 350,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://www.san-fernando.com.pe/upload/recetas/u684f4bU5c5EHCnf8AVhKoTrUGAWsfpc9kjeeF5a.png"),
+                            "${recipe.image}"),
                         fit: BoxFit.cover)),
               )),
               Positioned(
@@ -68,10 +76,12 @@ class RecipeDetailPage extends StatelessWidget {
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  "Burger",
-                                  style: TextStyle(fontSize: 32),
+                              children: [
+                                SizedBox(width: 300,
+                                  child: Text(
+                                    "${recipe.name}",
+                                    style: TextStyle(fontSize: 32),
+                                  ),
                                 ),
                                 Text("American")
                               ],
@@ -83,9 +93,9 @@ class RecipeDetailPage extends StatelessWidget {
                                     color: Colors.amberAccent,
                                     borderRadius: BorderRadius.circular(8)),
                                 child: Row(
-                                  children: const [
+                                  children: [
                                     Icon(Icons.star),
-                                    Text("5.0")
+                                    Text("${recipe.rating}")
                                   ],
                                 ))
                           ],
@@ -124,7 +134,7 @@ class RecipeDetailPage extends StatelessWidget {
                                         height: 4,
                                       ),
                                       Text(
-                                        "35",
+                                        "${recipe.maxTime}",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
@@ -241,9 +251,9 @@ class RecipeDetailPage extends StatelessWidget {
                     ),
                   ))
             ],
-          ),
+          ));
+        }) ,
         ),
-      ),
     );
   }
 }

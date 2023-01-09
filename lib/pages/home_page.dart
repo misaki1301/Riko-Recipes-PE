@@ -10,6 +10,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget getIconByName(name) {
+    double size = 32;
+    switch (name) {
+      case "rice_bowl":
+        return Icon(
+          Icons.rice_bowl,
+          size: size,
+        );
+      default:
+        return Icon(
+          Icons.fastfood,
+          size: size,
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,45 +107,59 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 120,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 8,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: index == 0
-                              ? const EdgeInsets.only(left: 16, right: 32)
-                              : const EdgeInsets.only(right: 32),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 72,
-                                width: 72,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(72),
-                                    color: index == 0
-                                        ? Colors.amberAccent
-                                        : Colors.grey.withOpacity(0.3)),
-                                child: const Icon(
-                                  Icons.fastfood,
-                                  size: 42,
-                                ),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: const Text(
-                                    "Popular",
-                                    style: TextStyle(fontSize: 16),
-                                  ))
-                            ],
-                          ),
+                FutureBuilder(
+                    future: SupabaseService().getRecipeCategories(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
-                      }),
-                ),
+                      }
+                      if (snapshot.data != null && snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Text("No tenemos categorias por el momento"),
+                        );
+                      }
+                      final categories = snapshot.data!;
+                      return SizedBox(
+                        height: 120,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: categories.length,
+                            itemBuilder: (context, index) {
+                              final category = categories[index];
+                              return Container(
+                                margin: index == 0
+                                    ? const EdgeInsets.only(left: 16, right: 32)
+                                    : const EdgeInsets.only(right: 32),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        height: 72,
+                                        width: 72,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(72),
+                                            color: index == 0
+                                                ? Colors.amberAccent
+                                                : Colors.grey.withOpacity(0.3)),
+                                        child:
+                                            getIconByName(category.iconName)),
+                                    Container(
+                                        margin: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          "${category.name}",
+                                          style: const TextStyle(fontSize: 16),
+                                        ))
+                                  ],
+                                ),
+                              );
+                            }),
+                      );
+                    }),
                 const SizedBox(
                   height: 8,
                 ),
@@ -174,7 +204,8 @@ class _HomePageState extends State<HomePage> {
                                 final recipe = recipes[index];
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/recipes");
+                                    Navigator.pushNamed(context, "/recipes",
+                                        arguments: recipe.id);
                                   },
                                   child: LayoutBuilder(
                                     builder: (context, constraints) => Column(
