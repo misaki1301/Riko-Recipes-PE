@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:putakerikoeh/services/supabase_service.dart';
 
 import '../models/recipe.dart';
+import '../services/supabase_service.dart';
 
 class RecipeDetailPage extends StatelessWidget {
   const RecipeDetailPage({Key? key}) : super(key: key);

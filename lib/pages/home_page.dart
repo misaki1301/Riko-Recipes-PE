@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:putakerikoeh/models/recipe.dart';
-import 'package:putakerikoeh/services/supabase_service.dart';
+
+import '../models/recipe.dart';
+import '../services/supabase_service.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

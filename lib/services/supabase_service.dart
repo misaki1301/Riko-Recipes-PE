@@ -1,6 +1,7 @@
-import 'package:putakerikoeh/models/recipe.dart';
-import 'package:putakerikoeh/models/recipe_category.dart';
 import "package:supabase_flutter/supabase_flutter.dart";
+
+import '../models/recipe.dart';
+import '../models/recipe_category.dart';
 
 final supabase = Supabase.instance.client;
 

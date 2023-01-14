@@ -1,6 +1,6 @@
+import 'package:Riko/pages/home_page.dart';
+import 'package:Riko/pages/recipe_detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:putakerikoeh/pages/home_page.dart';
-import 'package:putakerikoeh/pages/recipe_detail_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 const supabaseUrl = "https://raisnmmxiazsjfpvnder.supabase.co";
