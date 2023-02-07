@@ -1,0 +1,24 @@
+image: flutter/flutter:stable
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - flutter doctor --android-licenses
+    - flutter clean
+    - flutter build appbundle
+
+  artifacts:
+    paths:
+      - "**/**/**/**/**/**/*.appbundle"
+    expire_in: 1 day
+
+deploy:
+  stage: deploy
+  script:
+    - gcloud auth activate-service-account --key-file=
+    - gcloud config set project
+    - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID

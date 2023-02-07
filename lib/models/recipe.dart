@@ -6,11 +6,12 @@ String recipeToJson(Recipe? data) => json.encode(data!.toJson());
 class Recipe {
   int? id;
   DateTime? createdAt;
+  DateTime? updatedAt;
   String? name;
-  int? maxTime;
+  String? maxTime;
   String? image;
   int? dishStyle;
-  double? rating;
+  int? rating;
   int? calories;
   String? level;
   String? authorName;
@@ -20,6 +21,7 @@ class Recipe {
   Recipe(
       {this.id,
       this.createdAt,
+      this.updatedAt,
       this.name,
       this.maxTime,
       this.image,
@@ -33,30 +35,32 @@ class Recipe {
 
   factory Recipe.fromJson(Map<String, dynamic> json) => Recipe(
       id: json["id"],
-      createdAt: DateTime.parse(json["created_at"]),
+      createdAt: DateTime.parse(json["createdAt"]),
+      updatedAt: DateTime.parse(json["updatedAt"]),
       name: json["name"],
-      maxTime: json["max_time"],
+      maxTime: json["maxTime"],
       image: json["image"],
-      dishStyle: json["dish_style"],
+      dishStyle: json["dishStyle"],
       rating: json["rating"],
       calories: json["calories"],
       level: json["level"],
-      authorName: json["author_name"],
-      authorImage: json["author_image"],
-      isActive: json["is_active"]);
+      authorName: json["authorName"],
+      authorImage: json["authorImage"],
+      isActive: json["isActive"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "created_at": createdAt?.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
         "name": name,
-        "max_time": maxTime,
+        "maxTime": maxTime,
         "image": image,
-        "dish_style": dishStyle,
+        "dishStyle": dishStyle,
         "rating": rating,
         "calories": calories,
         "level": level,
-        "author_name": authorName,
-        "author_image": authorImage,
-        "is_active": isActive,
+        "authorName": authorName,
+        "authorImage": authorImage,
+        "isActive": isActive,
       };
 }
